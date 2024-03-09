@@ -1,0 +1,31 @@
+server:
+  port: 80
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: dev
+  cloud:
+    gateway:
+      routes:
+        - id: user-system
+          uri: lb://user-system
+          predicates:
+            - Path=/user/**
+        - id: face-detect
+          uri: lb://face-detect
+          predicates:
+            - Path=/face/**
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: ${spring.profiles.active}
+      config:
+        file-extension: yml
+        server-addr: 127.0.0.1:8848
+        group: ${spring.profiles.active}
+  config:
+    import:
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}

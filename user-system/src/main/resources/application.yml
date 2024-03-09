@@ -1,0 +1,51 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: user-system
+  profiles:
+    active: dev
+  mvc:
+    servlet:
+      load-on-startup: 1
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/welcome_system?serverTimezone=Asia/Shanghai
+    username: root
+    password: '010519'
+    druid:
+      min-idle: 1
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: 010519
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: 127.0.0.1:8848
+        group: ${spring.profiles.active}
+      config:
+        file-extension: yml
+        server-addr: 127.0.0.1:8848
+        group: ${spring.profiles.active}
+  config:
+    import:
+      - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+  security:
+    user:
+      name: admin
+      password: admin
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+  basic:
+    username: admin
+    password: admin
+logging:
+  level:
+    com.wong: trace
+    org.springframework.security: trace
