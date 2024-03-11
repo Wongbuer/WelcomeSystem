@@ -139,7 +139,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.wong.facedetect.FaceDetectApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>

@@ -137,7 +137,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.wong.usersystem.UserSystemApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>

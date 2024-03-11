@@ -87,7 +87,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.wong.gateway.GatewayApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
