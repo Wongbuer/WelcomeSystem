@@ -144,12 +144,7 @@ public class UserController {
         return userService.login(user);
     }
 
-    @GetMapping("/test")
-    public CommonResponse<String> test() {
-        return ResultUtil.success("test");
-    }
-
-    @RequestMapping("/success")
+    @PostMapping("/success")
     public CommonResponse<String> success() {
         return ResultUtil.success("success");
     }
