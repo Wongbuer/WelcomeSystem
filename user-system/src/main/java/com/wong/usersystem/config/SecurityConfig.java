@@ -1,7 +1,6 @@
 package com.wong.usersystem.config;
 
 import com.wong.usersystem.security.JwtAuthenticationFilter;
-import com.wong.usersystem.security.MyAuthenticationEntryPoint;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,14 +26,10 @@ public class SecurityConfig {
     @Resource
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Resource
-    private MyAuthenticationEntryPoint myAuthenticationEntryPoint;
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .httpBasic()
-                .authenticationEntryPoint(myAuthenticationEntryPoint)
                 .and()
                 .csrf()
                 .disable()

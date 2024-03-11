@@ -22,6 +22,9 @@ public class MySqlUserDetailsServiceImpl implements UserDetailsService {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getUsername, username);
         User user = userMapper.selectOne(wrapper);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户不存在");
+        }
         return new MySqlUserDetails(user);
     }
 }
