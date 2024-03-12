@@ -3,32 +3,18 @@
 <mapper namespace="com.wong.usersystem.mapper.UserMapper">
 
     <resultMap type="com.wong.common.model.entity.User" id="UserMap">
-        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="id" column="id" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password_hash" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="idNumber" column="id_number" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="credit" column="credit" jdbcType="INTEGER"/>
+        <result property="isRegistered" column="is_registered" jdbcType="INTEGER"/>
         <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
         <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
     </resultMap>
-
-    <!-- 批量插入 -->
-    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into welcome_system.user(usernamepassword_hashemailphonecreated_atupdated_at)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-        (#{entity.username}#{entity.passwordHash}#{entity.email}#{entity.phone}#{entity.createdAt}#{entity.updatedAt})
-        </foreach>
-    </insert>
-    <!-- 批量插入或按主键更新 -->
-    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
-        insert into welcome_system.user(usernamepassword_hashemailphonecreated_atupdated_at)
-        values
-        <foreach collection="entities" item="entity" separator=",">
-            (#{entity.username}#{entity.passwordHash}#{entity.email}#{entity.phone}#{entity.createdAt}#{entity.updatedAt})
-        </foreach>
-        on duplicate key update
-username = values(username) password_hash = values(password_hash) email = values(email) phone = values(phone) created_at = values(created_at) updated_at = values(updated_at)     </insert>
-
 </mapper>
 

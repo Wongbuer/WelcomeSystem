@@ -7,13 +7,13 @@ import com.wong.common.model.entity.User;
 import com.wong.common.utils.CommonResponse;
 import com.wong.common.utils.PageRequest;
 import com.wong.common.utils.ResultUtil;
+import com.wong.common.validate.AddGroup;
+import com.wong.common.validate.LoginGroup;
 import com.wong.usersystem.service.UserService;
-import com.wong.usersystem.validate.LoginGroup;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import jakarta.annotation.Resource;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.http.HttpStatus;
@@ -89,7 +89,7 @@ public class UserController {
             @Parameter(name = "user", description = "实体对象")
     })
     @PostMapping
-    public CommonResponse<Boolean> insert(@Valid @RequestBody User user) {
+    public CommonResponse<Boolean> insert(@Validated(AddGroup.class) @RequestBody User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         boolean isSaved = userService.save(user);
