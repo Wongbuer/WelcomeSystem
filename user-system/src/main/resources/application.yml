@@ -49,3 +49,5 @@ logging:
   level:
     com.wong: trace
     org.springframework.security: trace
+  file:
+    name: logs/user-system.log

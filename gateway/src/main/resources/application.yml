@@ -29,3 +29,6 @@ spring:
   config:
     import:
       - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+logging:
+  file:
+    name: logs/gateway.log
