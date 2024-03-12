@@ -19,21 +19,10 @@ spring:
         file-extension: yml
         server-addr: 127.0.0.1:8848
         group: ${spring.profiles.active}
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/welcome_system?serverTimezone=Asia/Shanghai
-    username: root
-    password: '010519'
-    druid:
-      min-idle: 1
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      password: 010519
   config:
     import:
       - nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+      - nacos:${spring.application.name}-database.${spring.cloud.nacos.config.file-extension}
   servlet:
     multipart:
       max-file-size: 5MB

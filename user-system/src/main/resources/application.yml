@@ -8,18 +8,6 @@ spring:
   mvc:
     servlet:
       load-on-startup: 1
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/welcome_system?serverTimezone=Asia/Shanghai
-    username: root
-    password: '010519'
-    druid:
-      min-idle: 1
-  data:
-    redis:
-      host: 127.0.0.1
-      port: 6379
-      password: 010519
   cloud:
     nacos:
       username: nacos
@@ -33,6 +21,7 @@ spring:
         group: ${spring.profiles.active}
   config:
     import:
+      - nacos:${spring.application.name}-database.${spring.cloud.nacos.config.file-extension}
       - optional:nacos:${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
   security:
     user:
