@@ -14,7 +14,6 @@ public interface FaceFeign {
     /**
      * 人脸信息录入
      *
-     * @param multipartFile
      * @param userFace
      * @return
      */
@@ -24,13 +23,18 @@ public interface FaceFeign {
     /**
      * 人脸信息搜索
      *
-     * @param multipartFile
      * @param userFace
      * @return
      */
     @PostMapping("/face_search")
     CommonResponse<String> faceSearch(UserFace userFace);
 
+    /**
+     * 人脸信息搜索(base64)
+     *
+     * @param userFace
+     * @return
+     */
     @PostMapping("/face_search_with_base64")
     CommonResponse<String> faceSearchWithBase64(@RequestBody UserFace userFace);
 

@@ -3,6 +3,7 @@ package com.wong.usersystem.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.wong.common.model.dto.LoginAndAuthenticateRequest;
 import com.wong.common.model.entity.User;
 import com.wong.common.utils.CommonResponse;
 import com.wong.common.utils.PageRequest;
@@ -151,12 +152,11 @@ public class UserController {
         return ResultUtil.success("success");
     }
 
-
     /**
      * 用户登录与认证
      *
      * @param multipartFile
-     * @param user
+     * @param request
      * @return
      * @throws IOException
      */
@@ -166,8 +166,11 @@ public class UserController {
             @Parameter(name = "user", description = "用户实体")
     })
     @PostMapping("/login_and_authenticate")
-    public CommonResponse<?> loginAndAuthentication(@RequestPart(required = false) MultipartFile multipartFile, User user, String faceImgBase64) throws IOException {
-        return userService.loginAndAuthentication(multipartFile, user, faceImgBase64);
+    public CommonResponse<?> loginAndAuthentication(@RequestPart(required = false) MultipartFile multipartFile, @RequestBody LoginAndAuthenticateRequest request) throws IOException {
+        User user = new User();
+        user.setIdNumber(request.getIdNumber());
+        user.setAdmissionNumber(request.getAdmissionNumber());
+        return userService.loginAndAuthentication(multipartFile, user,request.getFaceImgBase64());
     }
 }
 

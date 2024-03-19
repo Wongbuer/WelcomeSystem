@@ -1,6 +1,5 @@
 package com.wong.common.model.face;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 /**
@@ -10,7 +9,6 @@ import lombok.Data;
 @Data
 public class UserFace {
     private String userId;
-    @JsonProperty("")
     private String picString;
     private String userInfo;
 
