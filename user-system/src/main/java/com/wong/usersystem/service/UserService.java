@@ -4,6 +4,7 @@ package com.wong.usersystem.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wong.common.model.entity.User;
 import com.wong.common.utils.CommonResponse;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * (User)表服务接口
@@ -19,5 +20,12 @@ public interface UserService extends IService<User> {
      * @return 登录结果
      */
     CommonResponse<?> login(User user);
+
+    /**
+     * 登录并认证
+     *
+     * @return
+     */
+    CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user);
 }
 

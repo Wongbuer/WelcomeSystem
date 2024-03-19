@@ -1,8 +1,11 @@
 package com.wong.usersystem.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wong.common.feign.FaceFeign;
 import com.wong.common.model.entity.User;
+import com.wong.common.model.face.UserFace;
 import com.wong.common.utils.CommonResponse;
 import com.wong.common.utils.JwtUtil;
 import com.wong.common.utils.ResultUtil;
@@ -15,6 +18,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.Base64;
 
 import static com.wong.usersystem.config.SecurityConfig.SECURITY_LOGIN_PREFIX;
 
@@ -28,6 +34,9 @@ import static com.wong.usersystem.config.SecurityConfig.SECURITY_LOGIN_PREFIX;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Resource
     private AuthenticationManager authenticationManager;
+
+    @Resource
+    private FaceFeign faceFeign;
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -48,6 +57,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return ResultUtil.success(token);
         }
         return ResultUtil.error(HttpStatus.UNAUTHORIZED, "用户名或密码错误");
+    }
+
+    @Override
+    public CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user) {
+        LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(User::getIdNumber, user.getIdNumber())
+                        .eq(User::getAdmissionNumber, user.getAdmissionNumber());
+        User dbUser = baseMapper.selectOne(wrapper);
+        try {
+            if (dbUser != null) {
+                UserFace userFace = new UserFace();
+                userFace.setUserId(dbUser.getId());
+                String picString = Base64.getEncoder().encodeToString(multipartFile.getBytes());
+                userFace.setPicString(picString);
+                CommonResponse<String> response = faceFeign.faceSearchWithBase64(userFace);
+                if (response.getCode() == 200) {
+                    return ResultUtil.success(dbUser);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR, "人脸信息错误");
     }
 }
 

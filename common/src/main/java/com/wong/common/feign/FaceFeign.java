@@ -4,8 +4,7 @@ import com.wong.common.model.face.UserFace;
 import com.wong.common.utils.CommonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author Wongbuer
@@ -20,7 +19,7 @@ public interface FaceFeign {
      * @return
      */
     @PostMapping("/face_entry")
-    CommonResponse<String> faceEntry(@RequestPart MultipartFile multipartFile, UserFace userFace);
+    CommonResponse<String> faceEntry(UserFace userFace);
 
     /**
      * 人脸信息搜索
@@ -30,7 +29,10 @@ public interface FaceFeign {
      * @return
      */
     @PostMapping("/face_search")
-    CommonResponse<String> faceSearch(@RequestPart MultipartFile multipartFile, UserFace userFace);
+    CommonResponse<String> faceSearch(UserFace userFace);
+
+    @PostMapping("/face_search_with_base64")
+    CommonResponse<String> faceSearchWithBase64(@RequestBody UserFace userFace);
 
     /**
      * 人脸信息删除

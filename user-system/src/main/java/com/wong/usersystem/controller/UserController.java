@@ -20,7 +20,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -147,6 +149,25 @@ public class UserController {
     @PostMapping("/success")
     public CommonResponse<String> success() {
         return ResultUtil.success("success");
+    }
+
+
+    /**
+     * 用户登录与认证
+     *
+     * @param multipartFile
+     * @param user
+     * @return
+     * @throws IOException
+     */
+    @Operation(summary = "用户登录与认证")
+    @Parameters({
+            @Parameter(name = "multipartFile", description = "图片"),
+            @Parameter(name = "user", description = "用户实体")
+    })
+    @PostMapping("/login_and_authenticate")
+    public CommonResponse<?> loginAndAuthentication(@RequestPart MultipartFile multipartFile, User user) throws IOException {
+        return userService.loginAndAuthentication(multipartFile, user);
     }
 }
 

@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import jakarta.annotation.Resource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +38,7 @@ public class FaceController {
     })
     @PostMapping("/face_entry")
     public CommonResponse<String> faceEntry(@RequestPart MultipartFile multipartFile, UserFace userFace) throws IOException {
-        if (multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null || multipartFile.getSize() == 0) {
+        if ((multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null || multipartFile.getSize() == 0) && !StringUtils.hasText(userFace.getPicString())) {
             throw new IllegalArgumentException("图片不能为空");
         }
         return faceService.faceEntry(multipartFile, userFace);
@@ -58,7 +59,7 @@ public class FaceController {
     })
     @PostMapping("/face_search")
     public CommonResponse<String> faceSearch(@RequestPart MultipartFile multipartFile, UserFace userFace) throws IOException {
-        if (multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null || multipartFile.getSize() == 0) {
+        if ((multipartFile.isEmpty() || multipartFile.getOriginalFilename() == null || multipartFile.getSize() == 0) && !StringUtils.hasText(userFace.getPicString())) {
             throw new IllegalArgumentException("图片不能为空");
         }
         return faceService.faceSearch(multipartFile, userFace);
@@ -78,5 +79,10 @@ public class FaceController {
     @PostMapping("/face_remove")
     public CommonResponse<String> faceRemove(UserFace userFace) throws IOException {
         return faceService.faceRemove(userFace);
+    }
+
+    @PostMapping("/face_search_with_base64")
+    public CommonResponse<String> faceSearchWithBase64(@RequestBody UserFace userFace) throws IOException {
+        return faceService.faceSearchWithBase64(userFace);
     }
 }

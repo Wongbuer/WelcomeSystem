@@ -78,6 +78,9 @@ public class User implements Serializable {
     @NotBlank(message = "nickname不能为空")
     @Size(max = 255, message = "nickname长度不能超过255")
     private String nickname;
+
+    @TableField("letter_number")
+    private String admissionNumber;
     /**
      * 积分
      */

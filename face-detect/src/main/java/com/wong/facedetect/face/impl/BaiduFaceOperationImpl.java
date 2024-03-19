@@ -65,7 +65,7 @@ public class BaiduFaceOperationImpl implements FaceOperation {
     }
 
     @Override
-    public Integer faceInformationSearch(UserFace userFace) throws IOException {
+    public String faceInformationSearch(UserFace userFace) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
         Map<String, Object> params = new HashMap<>(4);
         params.put("group_id_list", "test");
@@ -84,15 +84,15 @@ public class BaiduFaceOperationImpl implements FaceOperation {
             if (response.body() != null) {
                 JSONObject result = JSONUtil.parseObj(response.body().string()).getJSONObject("result");
                 JSONArray userList = result.getJSONArray("user_list");
-                return userList.getJSONObject(0).getInt("user_id");
+                return userList.getJSONObject(0).getStr("user_id");
             }
         } catch (Exception e) {
             if (log.isTraceEnabled()) {
                 log.trace("face Information search failed-{}", e.getMessage());
             }
-            return -1;
+            return null;
         }
-        return 0;
+        return null;
     }
 
     @Override

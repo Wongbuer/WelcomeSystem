@@ -11,6 +11,7 @@
         <result property="idNumber" column="id_number" jdbcType="VARCHAR"/>
         <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
         <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="letterNumber" column="letter_number" jdbcType="VARCHAR"/>
         <result property="credit" column="credit" jdbcType="INTEGER"/>
         <result property="isRegistered" column="is_registered" jdbcType="INTEGER"/>
         <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>

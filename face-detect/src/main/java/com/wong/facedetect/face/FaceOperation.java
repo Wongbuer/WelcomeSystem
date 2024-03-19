@@ -31,7 +31,7 @@ public interface FaceOperation {
      * @return
      * @throws IOException
      */
-    Integer faceInformationSearch(UserFace userFace) throws IOException;
+    String faceInformationSearch(UserFace userFace) throws IOException;
 
     /**
      * 人脸信息删除

@@ -16,4 +16,6 @@ public interface FaceService {
     CommonResponse<String> faceSearch(MultipartFile multipartFile, UserFace userFace) throws IOException;
 
     CommonResponse<String> faceRemove(UserFace userFace) throws IOException;
+
+    CommonResponse<String> faceSearchWithBase64(UserFace userFace) throws IOException;
 }
