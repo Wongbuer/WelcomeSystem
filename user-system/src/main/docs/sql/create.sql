@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `user`
     `avatar`        VARCHAR(255) DEFAULT '' COMMENT '头像',
     `nickname`      VARCHAR(255) DEFAULT '' COMMENT '昵称',
     `credit`        INT          DEFAULT 0 COMMENT '积分',
-    `letter_number` VARCHAR(20)  DEFAULT '' COMMENT '通知书编号',
+    `admission_number` VARCHAR(20)  DEFAULT '' COMMENT '通知书编号',
     `is_registered` BOOLEAN      DEFAULT FALSE COMMENT '是否注册',
     `created_at`    TIMESTAMP    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `updated_at`    TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'

@@ -79,7 +79,7 @@ public class User implements Serializable {
     @Size(max = 255, message = "nickname长度不能超过255")
     private String nickname;
 
-    @TableField("letter_number")
+    @TableField("admissionNumber")
     private String admissionNumber;
     /**
      * 积分
