@@ -166,8 +166,8 @@ public class UserController {
             @Parameter(name = "user", description = "用户实体")
     })
     @PostMapping("/login_and_authenticate")
-    public CommonResponse<?> loginAndAuthentication(@RequestPart MultipartFile multipartFile, User user) throws IOException {
-        return userService.loginAndAuthentication(multipartFile, user);
+    public CommonResponse<?> loginAndAuthentication(@RequestPart(required = false) MultipartFile multipartFile, User user, String faceImgBase64) throws IOException {
+        return userService.loginAndAuthentication(multipartFile, user, faceImgBase64);
     }
 }
 

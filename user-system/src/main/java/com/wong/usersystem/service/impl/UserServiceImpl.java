@@ -60,7 +60,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user) {
+    public CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user, String faceImgBase64) {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(User::getIdNumber, user.getIdNumber())
                         .eq(User::getAdmissionNumber, user.getAdmissionNumber());
@@ -69,8 +69,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             if (dbUser != null) {
                 UserFace userFace = new UserFace();
                 userFace.setUserId(dbUser.getId());
-                String picString = Base64.getEncoder().encodeToString(multipartFile.getBytes());
-                userFace.setPicString(picString);
+                if (multipartFile != null) {
+                    String picString = Base64.getEncoder().encodeToString(multipartFile.getBytes());
+                    userFace.setPicString(picString);
+                } else if (faceImgBase64 != null) {
+                    userFace.setPicString(faceImgBase64);
+                }
                 CommonResponse<String> response = faceFeign.faceSearchWithBase64(userFace);
                 if (response.getCode() == 200) {
                     return ResultUtil.success(dbUser);

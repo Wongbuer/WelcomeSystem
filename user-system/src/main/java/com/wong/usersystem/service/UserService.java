@@ -26,6 +26,6 @@ public interface UserService extends IService<User> {
      *
      * @return
      */
-    CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user);
+    CommonResponse<User> loginAndAuthentication(MultipartFile multipartFile, User user, String faceImgBase64);
 }
 
